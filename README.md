@@ -1,5 +1,5 @@
 # redux-toolkit-codevolution
-RTK + React: Following codevolution [video playlist](https://discord.com/channels/1225615050157588491/1325587288310415531/1325588042324381737)
+RTK + React: Following codevolution [video playlist](https://youtu.be/0awA5Uw6SJE?si=MZwQ_jngxR38rZQu)
 
 Learnings:
 - **Redux**: A predictable *State Container* for JS apps
