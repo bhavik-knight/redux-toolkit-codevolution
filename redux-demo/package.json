@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "axios": "^1.7.9",
     "immer": "^10.1.1",
     "react-redux": "^9.2.0",
     "redux-logger": "^3.0.6"

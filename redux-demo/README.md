@@ -32,9 +32,9 @@ Vanilla JS + Redux to understand the basic concepts or redux
         - Similarly: For subscribe, make sure that argument is a function i.e. `() => { ...something... }`
           to avoid erros regarding listener2 is not a function
 
-## Steps: [ video 14 - Middleware, to log, error-reporting, auth, etc. ]
+## Steps: [ video 14 - Middleware - for logging, error-reporting, auth, async func calls for data fetching, etc. ]
 
-    1. Install `redux-logger` to keep the logs
+    1. Install `redux-logger` (a middleware) to keep the logs
         npm install redux-logger
     2. To run `index.js`
         node index.js
@@ -47,3 +47,23 @@ Vanilla JS + Redux to understand the basic concepts or redux
             middleware: (getDefaultMiddleware) => getDefaultMiddleware.concat(logger),
         };
         - remove logs on subscribe
+
+## Steps: [ Video 15, 16 - Middleware - redux-thunk; to do async operation w/ redux]
+
+    1. Install axios, redux-thunk. Update redux-thunk is already included in RTK, so if using RTK it's not needed
+        npm install axios redux-thunk
+    2. This middleware allows action creator to return a function instead of an action (object).
+        action objects are like `{type: ..., payload: ...}`
+    3. Since it allows to return a function; we can have side effects;
+        Return an async function, which makes a get request to an external API using axios
+        async () => {
+            try {
+                const response = await axios.get(url);
+                console.log(response.data);  // success
+            } catch (error) {
+                console.err(error.message);  // failure
+            }
+        }
+
+        This function allows a parameter - **dispatch**. So when we make a request, we can dispatch those action creators -
+        fetchUserRequest, fetchUserSuccess, fetchUserFailure on apporpriate places
