@@ -29,4 +29,5 @@ Vanilla JS + Redux to understand the basic concepts or redux
         - Use `(draft) => { draftUpdate }` to avoid implicit return when using arrow function.
         - i.e. don't do this `(draft) =>  draftUpdate`
         - Or use void before the one-line statement for the update, i.e. `(draft) => void (draftUpdate)`
-        - Similarly: For subscribe, make sure that argument is a function i.e. `() => { ...something... }` to avoid erros regarding listener2 is not a function
+        - Similarly: For subscribe, make sure that argument is a function i.e. `() => { ...something... }`
+          to avoid erros regarding listener2 is not a function
