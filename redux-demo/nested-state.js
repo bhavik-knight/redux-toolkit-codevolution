@@ -27,7 +27,7 @@ const updateStreet = (street) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case STREET_UPDATED:
-      return produce(state, (draft) => void (draft.address.street = action.payload)); // use of immer to update immuatable DS
+      return produce(state, (draft) => void (draft.address.street = action.payload));
     //   return {
     //     ...state,
     //     address: {

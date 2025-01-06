@@ -1,4 +1,5 @@
 import { configureStore, bindActionCreators, combineReducers } from "@reduxjs/toolkit";
+import pkg from "redux-logger";
 
 // action: activity that happens at cake-shop
 const CAKE_ORDERED = "CAKE_ORDERED";
@@ -94,21 +95,29 @@ const icecreamReducer = (state = initialIcecreamState, action) => {
   }
 };
 
-// configure a store by passing a parameter - reducer function
-// this is because reducer function holds the initial state
 // store can only have one reducer
 const rootReducer = combineReducers({
   cake: cakeReducer,
   icecream: icecreamReducer,
 });
-const store = configureStore({ reducer: rootReducer });
+
+// create a custom logger
+const { createLogger } = pkg;
+const logger = createLogger();
+
+// configure a store by passing a parameter - reducer function
+// this is because reducer function holds the initial state
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+});
 
 // log the initial state - access to the state
 console.log("Initial state:", store.getState());
 
 // subscribe to the state, which can be used to ubsubscribe as well
 // this is the listener; when something tries to change the state, it listens to going execute
-const unsubscribe = store.subscribe(() => void console.log("Updated state:", store.getState()));
+const unsubscribe = store.subscribe(() => {});
 
 // dispatch - the action to be peformed to change the state
 // alternative way - bind action creatros
@@ -125,8 +134,8 @@ actions.orderCake(); // initial - 2 + 10 - 3 => intial + 5
 // do the similar for icecream
 actions.orderIcecream(); // initial - 1
 actions.restockIcecream(5); // initial - 1 + 5
-actions.orderIcecream();
-actions.orderIcecream(); // initial - 1 + 5 - 2 => initial + 2
+actions.orderIcecream(3);
+actions.orderIcecream(); // initial - 1 + 5 - 4 => initial
 
 // // dispatch - order the cake
 // store.dispatch(orderCake());
