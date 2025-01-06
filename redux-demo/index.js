@@ -1,18 +1,20 @@
-import { configureStore, bindActionCreators } from "@reduxjs/toolkit";
+import { configureStore, bindActionCreators, combineReducers } from "@reduxjs/toolkit";
 
-// activity that happens at cake-shop
+// action: activity that happens at cake-shop
 const CAKE_ORDERED = "CAKE_ORDERED";
 const CAKE_RESTOCKED = "CAKE_RESTOCKED";
+const ICECREAM_ORDERD = "ICECREAM_ORDERED";
+const ICECREAM__RESTOCKED = "ICECREAM_RESTOCKED";
 
 // Action is an object
 // Action - has a type - an event/activity to be done at the store
 // Action - has a payload - for any additional information
 // Dispatch: returns action object
 // action createor - orderCake
-const orderCake = () => {
+const orderCake = (quantity = 1) => {
   return {
     type: CAKE_ORDERED,
-    payload: 1,
+    payload: quantity,
   };
 };
 
@@ -24,14 +26,33 @@ const restockCake = (quantity = 1) => {
   };
 };
 
+// action creators - orderIcecream, restockIcecream
+const orderIcecream = (quantity = 1) => {
+  return {
+    type: ICECREAM_ORDERD,
+    payload: quantity,
+  };
+};
+
+const restockIcecream = (quantity = 1) => {
+  return {
+    type: ICECREAM__RESTOCKED,
+    payload: quantity,
+  };
+};
+
 // initital state for the store
-const initialState = {
+const initialCakeState = {
   numberOfCake: 10,
+};
+
+const initialIcecreamState = {
+  numberOfIcecream: 20,
 };
 
 // reducer - is pure function with previous state, action as paramters, and returns new state
 // it doesn't change the parameter state itself, but return a new state
-const reducer = (state = initialState, action) => {
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     // how to update the state when cake is ordered
     case CAKE_ORDERED:
@@ -46,6 +67,28 @@ const reducer = (state = initialState, action) => {
         ...state,
         numberOfCake: state.numberOfCake + action.payload, // quantity: <quantity> is given when restocking, default 1
       };
+
+    default:
+      return state;
+  }
+};
+
+const icecreamReducer = (state = initialIcecreamState, action) => {
+  switch (action.type) {
+    // how to update the state when Icecream is ordered
+    case ICECREAM_ORDERD:
+      return {
+        ...state,
+        numberOfIcecream: state.numberOfIcecream - action.payload, // quantity is 1 when ordering
+      };
+
+    // how to update the state when Icecreams are restored
+    case ICECREAM__RESTOCKED:
+      return {
+        ...state,
+        numberOfIcecream: state.numberOfIcecream + action.payload, // quantity: <quantity> is given when restocking, default 1
+      };
+
     default:
       return state;
   }
@@ -53,7 +96,12 @@ const reducer = (state = initialState, action) => {
 
 // configure a store by passing a parameter - reducer function
 // this is because reducer function holds the initial state
-const store = configureStore({ reducer });
+// store can only have one reducer
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  icecream: icecreamReducer,
+});
+const store = configureStore({ reducer: rootReducer });
 
 // log the initial state - access to the state
 console.log("Initial state:", store.getState());
@@ -64,7 +112,7 @@ const unsubscribe = store.subscribe(() => console.log("Updated state:", store.ge
 
 // dispatch - the action to be peformed to change the state
 // alternative way - bind action creatros
-const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
+const actions = bindActionCreators({ orderCake, restockCake, orderIcecream, restockIcecream }, store.dispatch);
 
 // then we can dispatch an action by invoking action creators
 actions.orderCake();
@@ -73,6 +121,12 @@ actions.restockCake(10); // intitial - 2 + 10
 actions.orderCake();
 actions.orderCake();
 actions.orderCake(); // initial - 2 + 10 - 3 => intial + 5
+
+// do the similar for icecream
+actions.orderIcecream(); // initial - 1
+actions.restockIcecream(5); // initial - 1 + 5
+actions.orderIcecream();
+actions.orderIcecream(); // initial - 1 + 5 - 2 => initial + 2
 
 // // dispatch - order the cake
 // store.dispatch(orderCake());
