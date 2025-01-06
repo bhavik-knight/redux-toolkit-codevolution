@@ -67,3 +67,5 @@ Vanilla JS + Redux to understand the basic concepts or redux
 
         This function allows a parameter - **dispatch**. So when we make a request, we can dispatch those action creators -
         fetchUserRequest, fetchUserSuccess, fetchUserFailure on apporpriate places
+    4. Run the code -
+        node asyncActions.js
