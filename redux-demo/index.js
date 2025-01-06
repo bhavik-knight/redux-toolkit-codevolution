@@ -108,7 +108,7 @@ console.log("Initial state:", store.getState());
 
 // subscribe to the state, which can be used to ubsubscribe as well
 // this is the listener; when something tries to change the state, it listens to going execute
-const unsubscribe = store.subscribe(() => console.log("Updated state:", store.getState()));
+const unsubscribe = store.subscribe(() => void console.log("Updated state:", store.getState()));
 
 // dispatch - the action to be peformed to change the state
 // alternative way - bind action creatros
