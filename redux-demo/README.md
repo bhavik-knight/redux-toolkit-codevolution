@@ -24,3 +24,8 @@ Vanilla JS + Redux to understand the basic concepts or redux
         npm install immer
     2. To run the code - `nested-state.js`
         node nested-state.js
+    - Notes:
+        - Make sure that produce doesn't return anything if it's modifying the draft.
+        - Use `(draft) => { draftUpdate }` to avoid implicit return when using arrow function with one line update i.e. don't do this `(draft) =>  draftUpdate`
+        - Or use void before the one-line statement for the update, i.e. `(draft) => void (draftUpdate)`
+        - Similarly: For subscribe, make sure that argument is a function i.e. `() => { ...something... }` to avoid erros regarding listener2 is not a function
