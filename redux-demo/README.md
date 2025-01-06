@@ -10,10 +10,10 @@ Vanilla JS + Redux to understand the basic concepts or redux
 ## Steps:
 
     1. Create a folder named "redux-demo"
-    	`mkdir redux-demo`
+    	mkdir redux-demo
     2. Initialize the node project
-    	`npm init`
+    	npm init
     3. Install the RTK
-    	`npm install @reduxjs-toolkit`
+    	npm install @reduxjs-toolkit
     4. To run the code
-    	`npm index.js`
+    	npm index.js
