@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, bindActionCreators } from "@reduxjs/toolkit";
 
 // activity that happens at cake-shop
 const CAKE_ORDERED = "CAKE_ORDERED";
@@ -63,17 +63,28 @@ console.log("Initial state:", store.getState());
 const unsubscribe = store.subscribe(() => console.log("Updated state:", store.getState()));
 
 // dispatch - the action to be peformed to change the state
-// dispatch - order the cake
-store.dispatch(orderCake());
-store.dispatch(orderCake()); // initial - 2
+// alternative way - bind action creatros
+const actions = bindActionCreators({ orderCake, restockCake }, store.dispatch);
 
-// dispatch - restock 10 cakes
-store.dispatch(restockCake(10)); // initial - 2 + 10
+// then we can dispatch an action by invoking action creators
+actions.orderCake();
+actions.orderCake(); // initial - 2
+actions.restockCake(10); // intitial - 2 + 10
+actions.orderCake();
+actions.orderCake();
+actions.orderCake(); // initial - 2 + 10 - 3 => intial + 5
 
-// dispatch - order 3 cakes
-store.dispatch(orderCake());
-store.dispatch(orderCake());
-store.dispatch(orderCake()); // initial - 2 + 10 - 3 => initial + 5
+// // dispatch - order the cake
+// store.dispatch(orderCake());
+// store.dispatch(orderCake()); // initial - 2
+
+// // dispatch - restock 10 cakes
+// store.dispatch(restockCake(10)); // initial - 2 + 10
+
+// // dispatch - order 3 cakes
+// store.dispatch(orderCake());
+// store.dispatch(orderCake());
+// store.dispatch(orderCake()); // initial - 2 + 10 - 3 => initial + 5
 
 // unsubscribe the listener
 unsubscribe();
