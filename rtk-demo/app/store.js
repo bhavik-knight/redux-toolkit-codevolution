@@ -2,10 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import { cakeReducer } from "../features/cake/cakeSlice.js";
 import { icecreamReducer } from "../features/icecream/icecreamSlice.js";
 import { userReducer } from "../features/user/userSlice.js";
-import pkg from "redux-logger";
+import reduxLogger from "redux-logger";
 
 // logger
-const { createLogger } = pkg;
+const { createLogger } = reduxLogger;
 const logger = createLogger();
 
 // configure single-store for RTK

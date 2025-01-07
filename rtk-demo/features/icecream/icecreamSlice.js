@@ -3,34 +3,28 @@ import { cakeActions } from "../cake/cakeSlice.js";
 
 // initial state
 const initialIcecreamState = {
-  numberOfIcecreams: 20,
+    numberOfIcecreams: 20,
 };
 
 // icecream slice
 const icecreamSlice = createSlice({
-  name: "Ice-Cream",
+    name: "Ice-Cream",
 
-  initialState: initialIcecreamState,
+    initialState: initialIcecreamState,
 
-  reducers: {
-    ordered: (state, action) => {
-      action.payload
-        ? (state.numberOfIcecreams -= action.payload)
-        : state.numberOfIcecreams--;
+    reducers: {
+        ordered: (state, action) => {
+            action.payload ? (state.numberOfIcecreams -= action.payload) : state.numberOfIcecreams--;
+        },
+
+        restocked: (state, action) => {
+            action.payload ? (state.numberOfIcecreams += action.payload) : state.numberOfIcecreams++;
+        },
     },
 
-    restocked: (state, action) => {
-      action.payload
-        ? (state.numberOfIcecreams += action.payload)
-        : state.numberOfIcecreams++;
+    extraReducers: (builder) => {
+        builder.addCase(cakeActions.ordered, (state) => void state.numberOfIcecreams--);
     },
-  },
-
-  extraReducers: (builder) => {
-    builder.addCase(cakeActions.ordered, (state) => {
-      state.numberOfIcecreams--;
-    });
-  },
 });
 
 export const icecreamActions = icecreamSlice.actions;
