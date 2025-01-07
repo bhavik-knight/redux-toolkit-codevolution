@@ -1,4 +1,8 @@
-import { configureStore, bindActionCreators, combineReducers } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  bindActionCreators,
+  combineReducers,
+} from "@reduxjs/toolkit";
 import pkg from "redux-logger";
 
 // action: activity that happens at cake-shop
@@ -90,6 +94,12 @@ const icecreamReducer = (state = initialIcecreamState, action) => {
         numberOfIcecream: state.numberOfIcecream + action.payload, // quantity: <quantity> is given when restocking, default 1
       };
 
+    case CAKE_ORDERED:
+      return {
+        ...state,
+        numberOfIcecream: state.numberOfIcecream - action.payload,
+      };
+
     default:
       return state;
   }
@@ -118,10 +128,14 @@ console.log("Initial state:", store.getState());
 // subscribe to the state, which can be used to ubsubscribe as well
 // this is the listener; when something tries to change the state, it listens to going execute
 const unsubscribe = store.subscribe(() => {});
+//console.log("Updated State:", store.getState()) );
 
 // dispatch - the action to be peformed to change the state
 // alternative way - bind action creatros
-const actions = bindActionCreators({ orderCake, restockCake, orderIcecream, restockIcecream }, store.dispatch);
+const actions = bindActionCreators(
+  { orderCake, restockCake, orderIcecream, restockIcecream },
+  store.dispatch
+);
 
 // then we can dispatch an action by invoking action creators
 actions.orderCake();

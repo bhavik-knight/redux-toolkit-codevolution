@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { produce } from "immer";
 
+// initial state of deeply nested object
 const initialState = {
-  name: "Bhavik",
-  address: {
-    street: "225-B Main St",
-    city: "Antigonish",
-    province: "Nova Scotia",
-    country: "Canada",
-    zipcode: "B2G 2C1",
-  },
+    name: "Bhavik",
+    address: {
+        street: "225-B Main St",
+        city: "Antigonish",
+        province: "Nova Scotia",
+        country: "Canada",
+        zipcode: "B2G 2C1",
+    },
 };
 
 // action
@@ -17,28 +18,28 @@ const STREET_UPDATED = "STREET_UPDATED";
 
 // action-creator
 const updateStreet = (street) => {
-  return {
-    type: STREET_UPDATED,
-    payload: street,
-  };
+    return {
+        type: STREET_UPDATED,
+        payload: street,
+    };
 };
 
 // reducer
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case STREET_UPDATED:
-      return produce(state, (draft) => void (draft.address.street = action.payload));
-    //   return {
-    //     ...state,
-    //     address: {
-    //       ...state.address,
-    //       street: action.payload,
-    //     },
-    //   };
+    switch (action.type) {
+        case STREET_UPDATED:
+            return produce(state, (draft) => void (draft.address.street = action.payload));
+        //   return {
+        //     ...state,
+        //     address: {
+        //       ...state.address,
+        //       street: action.payload,
+        //     },
+        //   };
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
 
 // instantiate the store
