@@ -1,19 +1,13 @@
-import { bindActionCreators } from "@reduxjs/toolkit";
 import { store } from "./app/store.js";
-import { cakeSlice } from "./features/cake/cakeSlice.js";
-import { icecreamSlice } from "./features/icecream/icecreamSlice.js";
-
-// action creators
-const cakeActions = cakeSlice.actions;
-const icecreamActions = icecreamSlice.actions;
+import { cakeActions } from "./features/cake/cakeSlice.js";
+import { icecreamActions } from "./features/icecream/icecreamSlice.js";
 
 // initial state
 console.log("Initial state:", store.getState());
 
 // subscribe, unsubscribe
-const unsubscribe = store.subscribe(() =>
-  console.log("Updated state:", store.getState())
-);
+const unsubscribe = store.subscribe(() => {});
+// console.log("Updated state:", store.getState());
 
 // dispatch actions
 

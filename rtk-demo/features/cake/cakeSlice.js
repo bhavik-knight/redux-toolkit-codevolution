@@ -24,4 +24,5 @@ const cakeSlice = createSlice({
   },
 });
 
-export { cakeSlice };
+export const cakeActions = cakeSlice.actions;
+export const cakeReducer = cakeSlice.reducer;

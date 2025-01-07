@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { cakeSlice } from "../features/cake/cakeSlice.js";
-import { icecreamSlice } from "../features/icecream/icecreamSlice.js";
+import { cakeReducer } from "../features/cake/cakeSlice.js";
+import { icecreamReducer } from "../features/icecream/icecreamSlice.js";
+import pkg from "redux-logger";
 
-const cakeReducer = cakeSlice.reducer;
-const icecreamReducer = icecreamSlice.reducer;
+// logger
+const { createLogger } = pkg;
+const logger = createLogger();
 
 // configure single-store for RTK
 const store = configureStore({
@@ -11,6 +13,8 @@ const store = configureStore({
     cakeReducer,
     icecreamReducer,
   },
+
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export { store };
