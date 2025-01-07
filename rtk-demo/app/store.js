@@ -9,12 +9,12 @@ const logger = createLogger();
 
 // configure single-store for RTK
 const store = configureStore({
-  reducer: {
-    cakeReducer,
-    icecreamReducer,
-  },
+    reducer: {
+        cakeReducer,
+        icecreamReducer,
+    },
 
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
 
 export { store };
