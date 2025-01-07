@@ -1,15 +1,17 @@
 import { store } from "./app/store.js";
 import { cakeActions } from "./features/cake/cakeSlice.js";
 import { icecreamActions } from "./features/icecream/icecreamSlice.js";
+import { fetchUsers } from "./features/user/userSlice.js";
 
 // initial state
 console.log("Initial state:", store.getState());
 
 // subscribe, unsubscribe
-const unsubscribe = store.subscribe(() => {});
-// console.log("Updated state:", store.getState());
+const unsubscribe = store.subscribe(() => console.log("Updated state:", store.getState()));
 
 // dispatch actions
+// for users
+store.dispatch(fetchUsers());
 
 // for cake
 store.dispatch(cakeActions.ordered(2)); // init - 2
@@ -23,3 +25,4 @@ store.dispatch(icecreamActions.ordered(3)); // init - 3
 store.dispatch(icecreamActions.restocked(5)); // init - 3 + 5
 store.dispatch(icecreamActions.ordered());
 store.dispatch(icecreamActions.ordered()); // init - 3 + 5 - 2 = init
+// unsubscribe();
