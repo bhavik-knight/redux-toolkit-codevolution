@@ -1,0 +1,4 @@
+[submodule "react-rtk-ts-demo"]
+	path = "react-rtk-ts-demo"
+	url = "git@github.com:bhavik-knight/react-rtk-ts-demo.git"
+

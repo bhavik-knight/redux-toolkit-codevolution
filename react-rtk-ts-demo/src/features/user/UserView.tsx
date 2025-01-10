@@ -3,9 +3,7 @@ import { useAppDispatcher, useAppSelector } from "../../app/hook";
 import { fetchUsers } from "./userSlice";
 
 const UserView = () => {
-    const loading = useAppSelector((state) => state.user.isLoading);
-    const users = useAppSelector((state) => state.user.data);
-    const error = useAppSelector((state) => state.user.error);
+    const { isLoading, data, error } = useAppSelector((state) => state.user);
     const dispatch = useAppDispatcher();
 
     useEffect(() => {
@@ -14,15 +12,15 @@ const UserView = () => {
 
     return (
         <>
-            <h4>List of {users.length} Customers</h4>
+            <h4>List of {data.length} Customers</h4>
 
-            {loading && <h6>Fetching users' data...</h6>}
-            {!loading && error && users.length != 0 && <h6>Error in fetching user data </h6>}
+            {isLoading && <h6>Fetching users' data...</h6>}
+            {!isLoading && error && data.length != 0 && <h6>Error in fetching user data </h6>}
 
-            {!loading && !error && (
+            {!isLoading && !error && (
                 <>
-                    {users.map((user) => (
-                        <p>{user.name}</p>
+                    {data.map((user) => (
+                        <p key={user.id}>{user.name}</p>
                     ))}
                 </>
             )}
