@@ -28,12 +28,13 @@ const userSlice = createSlice({
         builder.addCase(fetchUsers.fulfilled, (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
+            state.error = "";
         });
 
         builder.addCase(fetchUsers.rejected, (state, action) => {
             state.isLoading = false;
-            state.error = action.error.message;
             state.data = [];
+            state.error = action.error.message;
         });
     },
 });
